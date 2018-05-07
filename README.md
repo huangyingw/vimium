@@ -169,10 +169,24 @@ PRs are welcome.
 Release Notes
 -------------
 
-Not yet released
+In `master` (not yet released)
 
+- Custom search engines can now be `javascript:` URLs (eg., search the current [site](https://github.com/philc/vimium/issues/2956#issuecomment-366509915)).
+
+1.63 (2018-02-16)
+
+- The `reload` command now accepts a count prefix; so `999r` reloads all tabs (in the current window).
 - Better detection of click listeners for link hints.
 - Display version number in page popup.
+- The Vomnibar is now loaded on demand (not preloaded).  This should fix some issues with the dev console.
+- The `\I` control (case sensitivity) for find mode has been removed.  Find mode uses smartcase.
+- Various bug fixes.
+- 1.63.1 (Firefox only):
+    - Fix [#2958](https://github.com/philc/vimium/issues/2958#issuecomment-366488659), link hints broken for `target="_blank"` links.
+- 1.63.2 (Firefox only):
+    - Fix [#2962](https://github.com/philc/vimium/issues/2962), find mode broken on Firefox Quantum.
+- 1.63.3:
+    - Fix [#2997](https://github.com/philc/vimium/issues/2997), Vimium's DOM injection breaks Google Pay site.
 
 1.62 (2017-12-09)
 

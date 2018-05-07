@@ -124,7 +124,7 @@ TabOperations =
       active: true
     winConfig.active = request.active if request.active?
     # Firefox does not support "about:newtab" in chrome.tabs.create.
-    delete tabConfig["url"] if tabConfig["url"] == Settings.defaults.newTabUrl
+    delete winConfig["url"] if winConfig["url"] == Settings.defaults.newTabUrl
     chrome.windows.create winConfig, callback
 
 toggleMuteTab = do ->
@@ -192,7 +192,6 @@ BackgroundCommands =
     if request.registryEntry.options.incognito or request.registryEntry.options.window
       windowConfig =
         url: request.urls
-        focused: true
         incognito: request.registryEntry.options.incognito ? false
       chrome.windows.create windowConfig, -> callback request
     else
@@ -235,6 +234,15 @@ BackgroundCommands =
     tabIds = BgUtils.tabRecency.getTabsByRecency().filter (tabId) -> tabId != tab.id
     if 0 < tabIds.length
       selectSpecificTab id: tabIds[(count-1) % tabIds.length]
+  reload: ({count, tabId, registryEntry, tab: {windowId}})->
+    bypassCache = registryEntry.options.hard ? false
+    chrome.tabs.query {windowId}, (tabs) ->
+      position = do ->
+        for tab, index in tabs
+          return index if tab.id == tabId
+      tabs = [tabs[position...]..., tabs[...position]...]
+      count = Math.min count, tabs.length
+      chrome.tabs.reload tab.id, {bypassCache} for tab in tabs[...count]
 
 # Remove tabs before, after, or either side of the currently active tab
 removeTabsRelative = (direction, {tab: activeTab}) ->
