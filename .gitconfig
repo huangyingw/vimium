@@ -1,10 +1,15 @@
 [remote "philc"]
     url = https://github.com/philc/vimium.git
     fetch = +refs/heads/*:refs/remotes/philc/*
+[remote "origin"]
+    url = git@github.com:huangyingw/vimium.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[push]
+    remote = origin
 [gsync]
     remote = philc
     branch = master
 [merge]
-	allow = true
+    allow = true
 [commit]
-	message = n
+    message = n
