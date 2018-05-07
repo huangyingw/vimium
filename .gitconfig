@@ -13,3 +13,6 @@
     allow = true
 [commit]
     message = n
+[branch "dev"]
+    remote = origin
+    merge = refs/heads/dev
